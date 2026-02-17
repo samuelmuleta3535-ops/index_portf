@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samuel | CS Student Portfolio</title>
+    <title>Samuel | CS Student Portfolio + Inbox</title>
     <meta name="description" content="Samuel - Computer Science Student. Frontend & PHP backend.">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* === RESET & VARIABLES (unchanged) === */
+        /* === RESET & VARIABLES === */
         *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
         :root {
             --primary: #6c63ff; --primary-light: #8b85ff; --secondary: #00d9ff; --accent: #ff6b6b;
@@ -53,7 +53,7 @@
         .mobile-menu.active { transform:translateX(0); }
         .mobile-menu .nav-link { font-size:1.5rem; }
 
-        /* === Hero with dynamic image upload & contact form === */
+        /* === Hero (unchanged) === */
         .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:100px 1.5rem 2rem; position:relative; overflow:hidden; }
         .hero::before { content:''; position:absolute; width:100%; height:100%; background:radial-gradient(circle at 20% 80%, rgba(108,99,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0,217,255,0.1) 0%, transparent 50%); pointer-events:none; }
         .hero-container { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; position:relative; z-index:1; }
@@ -68,7 +68,7 @@
         .social-link { width:45px; height:45px; display:flex; align-items:center; justify-content:center; background:var(--bg-tertiary); border-radius:10px; color:var(--text-secondary); transition:0.3s; }
         .social-link:hover { background:var(--primary); color:white; transform:translateY(-5px); }
 
-        /* Profile image with upload - now protected by passkey */
+        /* Profile image with upload - protected by passkey */
         .hero-image { display:flex; justify-content:center; align-items:center; animation:fadeInRight 1s ease; }
         .image-wrapper { position:relative; width:350px; height:350px; }
         #profile-image-container { width:100%; height:100%; border-radius:50%; overflow:hidden; position:relative; box-shadow:var(--shadow-glow); background:var(--gradient-primary); display:flex; align-items:center; justify-content:center; }
@@ -83,7 +83,7 @@
         .badge-1 { top:10%; right:-20px; animation:float 3s infinite; } .badge-2 { bottom:30%; left:-30px; animation:float 3s infinite 1s; } .badge-3 { bottom:5%; right:10%; animation:float 3s infinite 2s; }
         .scroll-indicator { position:absolute; bottom:30px; left:50%; transform:translateX(-50%); animation:bounce 2s infinite; }
 
-        /* Simple passkey modal for owner actions */
+        /* Passkey modal */
         .passkey-modal {
             position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter:blur(5px);
             display:flex; align-items:center; justify-content:center; z-index:2000; opacity:0; visibility:hidden; transition:0.3s;
@@ -103,7 +103,100 @@
         .inline-form input { background:var(--bg-tertiary); border:2px solid var(--border-color); border-radius:12px; padding:0.75rem 1rem; color:white; }
         .inline-form button { align-self:flex-start; }
 
-        /* === sections (unchanged) === */
+        /* === INBOX SECTION (new) === */
+        .inbox {
+            padding: 5rem 0;
+            background: var(--bg-secondary);
+        }
+        .inbox-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .inbox-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+        .inbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .inbox-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .inbox-badge {
+            background: var(--primary);
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+        .message-item {
+            background: var(--bg-tertiary);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+        }
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .message-contact {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .message-time {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        .message-text {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+        }
+        .reply-section {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            align-items: center;
+        }
+        .reply-input {
+            flex: 1;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            padding: 0.6rem 1rem;
+            color: white;
+        }
+        .reply-btn {
+            background: var(--primary);
+            color: white;
+            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .reply-btn:hover {
+            background: var(--secondary);
+        }
+        .empty-inbox {
+            color: var(--text-muted);
+            text-align: center;
+            padding: 3rem;
+        }
+
+        /* === sections (skills, services) unchanged === */
         .section-header { text-align:center; margin-bottom:4rem; }
         .section-subtitle { color:var(--primary); text-transform:uppercase; letter-spacing:2px; margin-bottom:0.5rem; }
         .section-title { font-size:clamp(2rem,5vw,3rem); font-weight:700; }
@@ -158,6 +251,7 @@
             .image-wrapper { width:250px; height:250px; } .floating-badge { display:none; }
             .contact-container { grid-template-columns:1fr; } .contact-info { text-align:center; } .contact-details { align-items:center; } .contact-social { justify-content:center; }
             .telegram-float { bottom:20px; left:20px; width:50px; height:50px; } .back-to-top { bottom:20px; right:20px; width:45px; height:45px; }
+            .inbox-header { flex-direction: column; align-items: start; gap: 0.5rem; }
         }
         @media (max-width:480px) {
             .hero-buttons { flex-direction:column; } .hero-buttons .btn { width:100%; } .image-wrapper { width:200px; height:200px; }
@@ -174,6 +268,7 @@
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#inbox" class="nav-link">Inbox</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <button class="telegram-btn" id="telegram-nav-btn"><i class="fab fa-telegram"></i> Share</button>
@@ -181,11 +276,11 @@
         </div>
     </nav>
     <div class="mobile-menu" id="mobile-menu">
-        <a href="#home" class="nav-link">Home</a><a href="#skills" class="nav-link">Skills</a><a href="#services" class="nav-link">Services</a><a href="#contact" class="nav-link">Contact</a>
+        <a href="#home" class="nav-link">Home</a><a href="#skills" class="nav-link">Skills</a><a href="#services" class="nav-link">Services</a><a href="#inbox" class="nav-link">Inbox</a><a href="#contact" class="nav-link">Contact</a>
         <button class="telegram-btn" id="telegram-mobile-btn"><i class="fab fa-telegram"></i> Share on Telegram</button>
     </div>
 
-    <!-- Passkey modal (only for owner actions) -->
+    <!-- Passkey modal -->
     <div class="passkey-modal" id="passkey-modal">
         <div class="passkey-box">
             <h3>🔒 Owner verification</h3>
@@ -196,14 +291,14 @@
         </div>
     </div>
 
-    <!-- Hero section with visitor contact form embedded -->
+    <!-- Hero section with visitor contact form -->
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
                 <p class="hero-greeting">Hello, I'm</p>
                 <h1 class="hero-title"><span class="gradient-text">Samuel</span></h1>
                 <h2 class="hero-subtitle">Computer Science Student</h2>
-                <p class="hero-description">My name is Samuel. I am a third-year Computer Science student with experience in web application development, particularly in frontend technologies. I also have some experience in backend development using PHP, and I have worked on several small projects. I am continuously striving to grow from a beginner to a professional developer. Anyone willing to share ideas, give guidance, or collaborate is welcome to contact me.</p>
+                <p class="hero-description">My name is Samuel. I am a third-year Computer Science student with experience in web application development, particularly in frontend technologies. I also have some experience in backend development using PHP, and I have worked on several small projects. I am continuously striving to grow. Anyone willing to share ideas, give guidance, or collaborate is welcome to contact me.</p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> Hire Me</a>
                     <a href="#contact" class="btn btn-secondary"><i class="fas fa-paper-plane"></i> Message</a>
@@ -214,13 +309,14 @@
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                 </div>
-                <!-- Visitor contact card (appears for everyone) -->
+                <!-- Visitor contact card (friends leave message) -->
                 <div class="visitor-contact-card">
-                    <h3>📬 Quick contact</h3>
-                    <p>Leave your email or phone, I'll get back to you.</p>
+                    <h3>📬 Leave a message</h3>
+                    <p>Your email/phone and message — I'll reply here in the inbox.</p>
                     <div class="inline-form" id="visitor-form">
-                        <input type="text" id="visitor-contact" placeholder="Email or phone number" required>
-                        <button class="btn btn-secondary" id="submit-visitor">Send & message me</button>
+                        <input type="text" id="visitor-contact" placeholder="Your email or phone" required>
+                        <input type="text" id="visitor-message" placeholder="Your message (optional)" required>
+                        <button class="btn btn-secondary" id="submit-visitor">Send message</button>
                     </div>
                     <div id="visitor-feedback" style="margin-top:0.5rem; color:var(--secondary);"></div>
                 </div>
@@ -232,7 +328,7 @@
                         <div class="default-icon"><i class="fas fa-user-graduate"></i></div>
                         <label for="image-upload" class="upload-overlay" id="upload-overlay-label"><i class="fas fa-camera"></i></label>
                     </div>
-                    <input type="file" id="image-upload" accept="image/*" disabled> <!-- disabled by default, enabled only after passkey -->
+                    <input type="file" id="image-upload" accept="image/*" disabled>
                     <div class="floating-badge badge-1"><i class="fas fa-code"></i> Developer</div>
                     <div class="floating-badge badge-2"><i class="fas fa-laptop-code"></i> Coder</div>
                     <div class="floating-badge badge-3"><i class="fas fa-graduation-cap"></i> Student</div>
@@ -242,9 +338,32 @@
         <div class="scroll-indicator"><a href="#skills"><i class="fas fa-chevron-down"></i></a></div>
     </section>
 
-    <!-- Skills, Services sections (unchanged) -->
+    <!-- Skills & Services (unchanged) -->
     <section class="skills" id="skills"><div class="container"><div class="section-header"><p class="section-subtitle">My Expertise</p><h2 class="section-title">Skills & Abilities</h2><div class="title-underline"></div></div><div class="skills-container"><div class="skill-category reveal"><div class="category-header"><div class="category-icon frontend"><i class="fas fa-palette"></i></div><h3>Frontend Development</h3></div><div class="skill-items"><div class="skill-item"><div class="skill-info"><span class="skill-name">HTML5</span><span class="skill-percent">85%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">CSS3</span><span class="skill-percent">75%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="75"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">JavaScript</span><span class="skill-percent">65%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="65"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">React.js</span><span class="skill-percent">25%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="25"></div></div></div></div></div><div class="skill-category reveal"><div class="category-header"><div class="category-icon backend"><i class="fas fa-server"></i></div><h3>Backend Development</h3></div><div class="skill-items"><div class="skill-item"><div class="skill-info"><span class="skill-name">PHP</span><span class="skill-percent">70%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="70"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">MySQL</span><span class="skill-percent">65%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="65"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">REST APIs</span><span class="skill-percent">55%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="55"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">Node.js</span><span class="skill-percent">40%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="40"></div></div></div></div></div><div class="skill-category reveal"><div class="category-header"><div class="category-icon tools"><i class="fas fa-tools"></i></div><h3>Tools & Others</h3></div><div class="skill-items"><div class="skill-item"><div class="skill-info"><span class="skill-name">Git & GitHub</span><span class="skill-percent">70%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="70"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">VS Code</span><span class="skill-percent">85%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">Problem Solving</span><span class="skill-percent">80%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="80"></div></div></div></div></div></div></section>
     <section class="services" id="services"><div class="container"><div class="section-header"><p class="section-subtitle">What I Offer</p><h2 class="section-title">My Services</h2><div class="title-underline"></div></div><div class="services-grid"><div class="service-card reveal"><div class="service-icon"><i class="fas fa-code"></i></div><h3 class="service-title">Web Development</h3><p class="service-description">Building complete web applications from scratch using modern technologies.</p><ul class="service-features"><li><i class="fas fa-check"></i> Custom Website</li><li><i class="fas fa-check"></i> Database Integration</li><li><i class="fas fa-check"></i> API Development</li></ul></div><div class="service-card reveal"><div class="service-icon"><i class="fas fa-paint-brush"></i></div><h3 class="service-title">Frontend Development</h3><p class="service-description">Creating beautiful, interactive user interfaces with HTML, CSS, JavaScript.</p><ul class="service-features"><li><i class="fas fa-check"></i> Responsive Design</li><li><i class="fas fa-check"></i> Modern Animations</li><li><i class="fas fa-check"></i> Cross-browser</li></ul></div><div class="service-card reveal"><div class="service-icon"><i class="fas fa-database"></i></div><h3 class="service-title">Backend Development</h3><p class="service-description">Robust server-side apps with PHP and MySQL. Secure, scalable systems.</p><ul class="service-features"><li><i class="fas fa-check"></i> PHP Development</li><li><i class="fas fa-check"></i> MySQL Design</li><li><i class="fas fa-check"></i> REST APIs</li></ul></div></div></div></section>
+
+    <!-- ========== INBOX SECTION (see messages & reply) ========== -->
+    <section class="inbox" id="inbox">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Messages from friends</p>
+                <h2 class="section-title">Inbox</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="inbox-container">
+                <div class="inbox-card">
+                    <div class="inbox-header">
+                        <span class="inbox-title">💬 Contact requests & replies</span>
+                        <span class="inbox-badge" id="message-count">0 messages</span>
+                    </div>
+                    <div id="inbox-messages-list">
+                        <!-- messages will be injected here -->
+                        <div class="empty-inbox">No messages yet. Friends can leave a message above.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact section unchanged -->
     <section class="contact" id="contact"><div class="container"><div class="section-header"><p class="section-subtitle">Get In Touch</p><h2 class="section-title">Contact Me</h2><div class="title-underline"></div></div><div class="contact-container"><div class="contact-info"><h3>Let's Talk</h3><p>I'm currently available for freelance work. Feel free to reach out!</p><div class="contact-details"><div class="contact-item"><div class="contact-icon"><i class="fas fa-phone"></i></div><div class="contact-text"><h4>Phone</h4><a href="tel:0970370618">0970370618</a></div></div><div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div class="contact-text"><h4>Email</h4><a href="mailto:samuel@example.com">samuel@example.com</a></div></div><div class="contact-item"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div class="contact-text"><h4>Location</h4><p>Your City, Country</p></div></div></div><div class="contact-social"><a href="#" class="social-btn"><i class="fab fa-github"></i></a><a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a><a href="#" class="social-btn"><i class="fab fa-twitter"></i></a><a href="#" class="social-btn"><i class="fab fa-instagram"></i></a></div></div><div class="contact-form-wrapper"><form class="contact-form" id="contact-form"><div class="form-group"><label for="name">Your Name</label><input type="text" id="name" name="name" placeholder="Enter name" required><span class="error-message"></span></div><div class="form-group"><label for="email">Your Email</label><input type="email" id="email" name="email" placeholder="Enter email" required><span class="error-message"></span></div><div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" placeholder="Project Inquiry" required><span class="error-message"></span></div><div class="form-group"><label for="message">Your Message</label><textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea><span class="error-message"></span></div><button type="submit" class="btn btn-primary btn-submit" id="submit-btn"><span class="btn-text">Send Message</span><span class="btn-loading"><i class="fas fa-spinner fa-spin"></i> Sending...</span><i class="fas fa-paper-plane btn-icon"></i></button><div id="form-status"></div></form></div></div></div></section>
@@ -257,8 +376,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // ========== PASSKEY PROTECTION (owner only) ==========
-            const PASSKEY = "1234"; // simple passkey, change as needed
+            // ========== PASSKEY PROTECTION ==========
+            const PASSKEY = "1234";
             const modal = document.getElementById('passkey-modal');
             const passInput = document.getElementById('passkey-input');
             const submitPass = document.getElementById('submit-passkey');
@@ -271,10 +390,8 @@
             
             let ownerVerified = false;
 
-            // Function to open modal
             function requirePasskey(callback) {
                 modal.classList.add('active');
-                // store callback to execute after success
                 window.passkeyCallback = callback;
             }
 
@@ -283,9 +400,7 @@
                     modal.classList.remove('active');
                     passError.style.display = 'none';
                     ownerVerified = true;
-                    // enable upload and share for this session
                     uploadInput.disabled = false;
-                    // execute any pending callback (like share or upload click)
                     if (window.passkeyCallback) {
                         window.passkeyCallback();
                         window.passkeyCallback = null;
@@ -295,25 +410,19 @@
                 }
             });
 
-            // Close modal if clicked outside (simple)
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) modal.classList.remove('active');
             });
 
-            // ========== PROFILE IMAGE UPLOAD (only after passkey) ==========
+            // Profile image upload (protected)
             const profileImg = document.getElementById('profile-img');
             const defaultIcon = document.querySelector('#profile-image-container .default-icon');
 
-            // Intercept upload label click
             uploadLabel.addEventListener('click', function(e) {
                 if (!ownerVerified) {
                     e.preventDefault();
-                    requirePasskey(function() {
-                        // after verification, trigger upload input
-                        uploadInput.click();
-                    });
+                    requirePasskey(function() { uploadInput.click(); });
                 } else {
-                    // already verified, let upload happen
                     uploadInput.click();
                 }
             });
@@ -331,47 +440,107 @@
                 }
             });
 
-            // ========== TELEGRAM SHARE (only after passkey) ==========
+            // Telegram share (protected)
             function shareOnTelegram() {
                 const url = encodeURIComponent(window.location.href);
                 const text = encodeURIComponent("Check out my CS portfolio! I'm Samuel, web developer.");
                 window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
             }
-
             function handleShareClick(e) {
                 if (!ownerVerified) {
                     e.preventDefault();
-                    requirePasskey(function() {
-                        shareOnTelegram();
-                    });
+                    requirePasskey(function() { shareOnTelegram(); });
                 } else {
                     shareOnTelegram();
                 }
             }
-
             telegramNav.addEventListener('click', handleShareClick);
             telegramMobile.addEventListener('click', handleShareClick);
             telegramFloat.addEventListener('click', handleShareClick);
 
-            // ========== VISITOR CONTACT FORM (friends can leave email/phone) ==========
-            const visitorForm = document.getElementById('visitor-form');
-            const visitorInput = document.getElementById('visitor-contact');
-            const visitorFeedback = document.getElementById('visitor-feedback');
-            const submitVisitor = document.getElementById('submit-visitor');
+            // ========== INBOX: store messages & replies ==========
+            let messages = [];  // each: { contact, text, time, replies: [] }
 
-            submitVisitor.addEventListener('click', function() {
-                const contact = visitorInput.value.trim();
-                if (contact === '') {
-                    visitorFeedback.innerHTML = '<span style="color:#ff6b6b;">Please enter email or phone</span>';
+            // DOM elements
+            const inboxList = document.getElementById('inbox-messages-list');
+            const messageCountSpan = document.getElementById('message-count');
+            const visitorContact = document.getElementById('visitor-contact');
+            const visitorMessage = document.getElementById('visitor-message');
+            const submitVisitor = document.getElementById('submit-visitor');
+            const visitorFeedback = document.getElementById('visitor-feedback');
+
+            function renderInbox() {
+                if (messages.length === 0) {
+                    inboxList.innerHTML = '<div class="empty-inbox">No messages yet. Friends can leave a message above.</div>';
+                    messageCountSpan.innerText = '0 messages';
                     return;
                 }
-                // Simulate sending (just feedback)
-                visitorFeedback.innerHTML = '<span style="color:#00d9ff;">Thanks! Samuel will contact you soon.</span>';
-                visitorInput.value = '';
-                // In a real scenario, you could send this to a backend
+                let html = '';
+                messages.forEach((msg, idx) => {
+                    const timeStr = msg.time || new Date().toLocaleString();
+                    html += `<div class="message-item" id="msg-${idx}">`;
+                    html += `<div class="message-header"><span class="message-contact">📞 ${msg.contact}</span><span class="message-time">${timeStr}</span></div>`;
+                    html += `<div class="message-text">💬 ${msg.text || '(no message)'}</div>`;
+                    
+                    // show replies if any
+                    if (msg.replies && msg.replies.length > 0) {
+                        msg.replies.forEach(r => {
+                            html += `<div style="margin-left:2rem; margin-bottom:0.5rem; border-left:2px solid var(--secondary); padding-left:1rem;">`;
+                            html += `<span style="color:var(--secondary);">👤 you:</span> ${r.text} <span style="color:var(--text-muted); font-size:0.7rem;">${r.time}</span>`;
+                            html += `</div>`;
+                        });
+                    }
+
+                    // reply form
+                    html += `<div class="reply-section">`;
+                    html += `<input type="text" class="reply-input" id="reply-input-${idx}" placeholder="Write a reply...">`;
+                    html += `<button class="reply-btn" data-index="${idx}">Reply</button>`;
+                    html += `</div></div>`;
+                });
+                inboxList.innerHTML = html;
+                messageCountSpan.innerText = messages.length + ' message' + (messages.length>1?'s':'');
+
+                // attach reply events
+                document.querySelectorAll('.reply-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const idx = this.getAttribute('data-index');
+                        const input = document.getElementById(`reply-input-${idx}`);
+                        const replyText = input.value.trim();
+                        if (replyText === '') return;
+                        const reply = {
+                            text: replyText,
+                            time: new Date().toLocaleString()
+                        };
+                        if (!messages[idx].replies) messages[idx].replies = [];
+                        messages[idx].replies.push(reply);
+                        renderInbox();  // re-render to show reply
+                    });
+                });
+            }
+
+            // Visitor submits message
+            submitVisitor.addEventListener('click', function() {
+                const contact = visitorContact.value.trim();
+                const text = visitorMessage.value.trim() || '(no message)';
+                if (contact === '') {
+                    visitorFeedback.innerHTML = '<span style="color:#ff6b6b;">Contact info required</span>';
+                    return;
+                }
+                // store message
+                messages.push({
+                    contact: contact,
+                    text: text,
+                    time: new Date().toLocaleString(),
+                    replies: []
+                });
+                renderInbox();
+                visitorContact.value = '';
+                visitorMessage.value = '';
+                visitorFeedback.innerHTML = '<span style="color:#00d9ff;">Message sent! Check inbox above.</span>';
+                setTimeout(() => visitorFeedback.innerHTML = '', 3000);
             });
 
-            // ========== RETAIN EXISTING FUNCTIONALITY (nav, animations, form, etc) ==========
+            // ========== EXISTING FUNCTIONALITY (nav, animations, form) ==========
             const navbar = document.getElementById('navbar');
             const hamburger = document.getElementById('hamburger');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -381,7 +550,6 @@
             const submitBtn = document.getElementById('submit-btn');
             const formStatus = document.getElementById('form-status');
 
-            // mobile toggle
             hamburger.addEventListener('click', function () {
                 this.classList.toggle('active');
                 mobileMenu.classList.toggle('active');
@@ -410,7 +578,7 @@
                 updateActiveNavLink();
             });
             function updateActiveNavLink() {
-                const sections = ['home', 'skills', 'services', 'contact'];
+                const sections = ['home', 'skills', 'services', 'inbox', 'contact'];
                 sections.forEach(id => {
                     const section = document.getElementById(id);
                     if (section) {
@@ -447,7 +615,6 @@
             window.addEventListener('scroll', animateSkillBars);
             animateSkillBars();
 
-            // reveal animations
             const revealElements = document.querySelectorAll('.reveal');
             function revealOnScroll() {
                 const windowHeight = window.innerHeight;
@@ -456,7 +623,7 @@
             window.addEventListener('scroll', revealOnScroll);
             revealOnScroll();
 
-            // contact form (simple mock)
+            // contact form (mock)
             contactForm.addEventListener('submit', async function (e) {
                 e.preventDefault();
                 document.querySelectorAll('.form-group').forEach(g => g.classList.remove('error'));
@@ -483,7 +650,7 @@
 
             document.getElementById('year').textContent = new Date().getFullYear();
 
-            // smooth scroll for all anchor links
+            // smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     const targetId = this.getAttribute('href');
@@ -496,7 +663,8 @@
                 });
             });
 
-            console.log('Portfolio ready — visitor contact on first page, owner actions protected.');
+            // Initial render
+            renderInbox();
         });
     </script>
 </body>
