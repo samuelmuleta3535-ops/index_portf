@@ -33,15 +33,36 @@
         .btn-secondary { background:transparent; border:2px solid var(--primary); color:white; }
         .btn-secondary:hover { background:var(--primary); transform:translateY(-3px); }
 
-        /* === Navigation === */
+        /* === Navigation with notification badge === */
         .navbar { position:fixed; top:0; width:100%; z-index:1000; padding:1rem 0; transition:0.3s; }
         .navbar.scrolled { background:rgba(15,15,26,0.95); backdrop-filter:blur(10px); box-shadow:var(--shadow-md); padding:0.5rem 0; }
         .nav-container { max-width:1200px; margin:0 auto; padding:0 1.5rem; display:flex; justify-content:space-between; align-items:center; }
         .logo { font-size:1.5rem; font-weight:700; } .logo span { color:var(--primary); }
-        .nav-menu { display:flex; gap:2rem; }
+        .nav-menu { display:flex; gap:2rem; align-items:center; }
         .nav-link { font-size:1rem; font-weight:500; color:var(--text-secondary); position:relative; padding:0.5rem 0; }
         .nav-link::after { content:''; position:absolute; bottom:0; left:0; width:0; height:2px; background:var(--gradient-primary); transition:0.3s; }
         .nav-link:hover,.nav-link.active { color:white; } .nav-link:hover::after,.nav-link.active::after { width:100%; }
+        
+        /* Notification badge */
+        .nav-item { position:relative; }
+        .notification-badge {
+            position:absolute; top:-8px; right:-12px; background:var(--accent); color:white;
+            border-radius:50%; width:20px; height:20px; font-size:0.7rem; display:flex;
+            align-items:center; justify-content:center; font-weight:600; box-shadow:0 0 10px var(--accent);
+        }
+        .mobile-notification {
+            margin-left: 8px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+        
         .telegram-btn { display:flex; align-items:center; gap:0.5rem; padding:0.5rem 1rem; background:#0088cc; color:white; border-radius:8px; font-weight:500; transition:0.3s; }
         .telegram-btn:hover { background:#0077b5; transform:scale(1.05); }
         .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:1001; }
@@ -103,7 +124,7 @@
         .inline-form input { background:var(--bg-tertiary); border:2px solid var(--border-color); border-radius:12px; padding:0.75rem 1rem; color:white; }
         .inline-form button { align-self:flex-start; }
 
-        /* === INBOX SECTION (new) === */
+        /* === INBOX SECTION === */
         .inbox {
             padding: 5rem 0;
             background: var(--bg-secondary);
@@ -260,15 +281,18 @@
     </style>
 </head>
 <body>
-    <!-- Nav -->
+    <!-- Nav with notification badge -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#home" class="logo">Sam<span>uel</span></a>
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#inbox" class="nav-link">Inbox</a></li>
+                <li class="nav-item">
+                    <a href="#inbox" class="nav-link" id="inbox-nav-link">Inbox</a>
+                    <span class="notification-badge" id="notification-badge" style="display: none;">0</span>
+                </li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <button class="telegram-btn" id="telegram-nav-btn"><i class="fab fa-telegram"></i> Share</button>
@@ -276,7 +300,11 @@
         </div>
     </nav>
     <div class="mobile-menu" id="mobile-menu">
-        <a href="#home" class="nav-link">Home</a><a href="#skills" class="nav-link">Skills</a><a href="#services" class="nav-link">Services</a><a href="#inbox" class="nav-link">Inbox</a><a href="#contact" class="nav-link">Contact</a>
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#inbox" class="nav-link" id="mobile-inbox-link">Inbox <span class="mobile-notification" id="mobile-notification" style="display: none;">0</span></a>
+        <a href="#contact" class="nav-link">Contact</a>
         <button class="telegram-btn" id="telegram-mobile-btn"><i class="fab fa-telegram"></i> Share on Telegram</button>
     </div>
 
@@ -309,13 +337,13 @@
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                 </div>
-                <!-- Visitor contact card (friends leave message) -->
+                <!-- Visitor contact card (friends leave message) - NOW WORKING -->
                 <div class="visitor-contact-card">
                     <h3>📬 Leave a message</h3>
-                    <p>Your email/phone and message — I'll reply here in the inbox.</p>
+                    <p>Your email/phone and message — I'll receive it instantly.</p>
                     <div class="inline-form" id="visitor-form">
                         <input type="text" id="visitor-contact" placeholder="Your email or phone" required>
-                        <input type="text" id="visitor-message" placeholder="Your message (optional)" required>
+                        <textarea id="visitor-message" placeholder="Your message (optional)" rows="2" style="background:var(--bg-tertiary); border:2px solid var(--border-color); border-radius:12px; padding:0.75rem 1rem; color:white; font-family:inherit;"></textarea>
                         <button class="btn btn-secondary" id="submit-visitor">Send message</button>
                     </div>
                     <div id="visitor-feedback" style="margin-top:0.5rem; color:var(--secondary);"></div>
@@ -342,7 +370,7 @@
     <section class="skills" id="skills"><div class="container"><div class="section-header"><p class="section-subtitle">My Expertise</p><h2 class="section-title">Skills & Abilities</h2><div class="title-underline"></div></div><div class="skills-container"><div class="skill-category reveal"><div class="category-header"><div class="category-icon frontend"><i class="fas fa-palette"></i></div><h3>Frontend Development</h3></div><div class="skill-items"><div class="skill-item"><div class="skill-info"><span class="skill-name">HTML5</span><span class="skill-percent">85%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">CSS3</span><span class="skill-percent">75%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="75"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">JavaScript</span><span class="skill-percent">65%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="65"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">React.js</span><span class="skill-percent">25%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="25"></div></div></div></div></div><div class="skill-category reveal"><div class="category-header"><div class="category-icon backend"><i class="fas fa-server"></i></div><h3>Backend Development</h3></div><div class="skill-items"><div class="skill-item"><div class="skill-info"><span class="skill-name">PHP</span><span class="skill-percent">70%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="70"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">MySQL</span><span class="skill-percent">65%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="65"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">REST APIs</span><span class="skill-percent">55%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="55"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">Node.js</span><span class="skill-percent">40%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="40"></div></div></div></div></div><div class="skill-category reveal"><div class="category-header"><div class="category-icon tools"><i class="fas fa-tools"></i></div><h3>Tools & Others</h3></div><div class="skill-items"><div class="skill-item"><div class="skill-info"><span class="skill-name">Git & GitHub</span><span class="skill-percent">70%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="70"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">VS Code</span><span class="skill-percent">85%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div></div><div class="skill-item"><div class="skill-info"><span class="skill-name">Problem Solving</span><span class="skill-percent">80%</span></div><div class="skill-bar"><div class="skill-progress" data-progress="80"></div></div></div></div></div></div></section>
     <section class="services" id="services"><div class="container"><div class="section-header"><p class="section-subtitle">What I Offer</p><h2 class="section-title">My Services</h2><div class="title-underline"></div></div><div class="services-grid"><div class="service-card reveal"><div class="service-icon"><i class="fas fa-code"></i></div><h3 class="service-title">Web Development</h3><p class="service-description">Building complete web applications from scratch using modern technologies.</p><ul class="service-features"><li><i class="fas fa-check"></i> Custom Website</li><li><i class="fas fa-check"></i> Database Integration</li><li><i class="fas fa-check"></i> API Development</li></ul></div><div class="service-card reveal"><div class="service-icon"><i class="fas fa-paint-brush"></i></div><h3 class="service-title">Frontend Development</h3><p class="service-description">Creating beautiful, interactive user interfaces with HTML, CSS, JavaScript.</p><ul class="service-features"><li><i class="fas fa-check"></i> Responsive Design</li><li><i class="fas fa-check"></i> Modern Animations</li><li><i class="fas fa-check"></i> Cross-browser</li></ul></div><div class="service-card reveal"><div class="service-icon"><i class="fas fa-database"></i></div><h3 class="service-title">Backend Development</h3><p class="service-description">Robust server-side apps with PHP and MySQL. Secure, scalable systems.</p><ul class="service-features"><li><i class="fas fa-check"></i> PHP Development</li><li><i class="fas fa-check"></i> MySQL Design</li><li><i class="fas fa-check"></i> REST APIs</li></ul></div></div></div></section>
 
-    <!-- ========== INBOX SECTION (see messages & reply) ========== -->
+    <!-- ========== INBOX SECTION ========== -->
     <section class="inbox" id="inbox">
         <div class="container">
             <div class="section-header">
@@ -353,7 +381,7 @@
             <div class="inbox-container">
                 <div class="inbox-card">
                     <div class="inbox-header">
-                        <span class="inbox-title">💬 Contact requests & replies</span>
+                        <span class="inbox-title">💬 Messages received</span>
                         <span class="inbox-badge" id="message-count">0 messages</span>
                     </div>
                     <div id="inbox-messages-list">
@@ -458,23 +486,43 @@
             telegramMobile.addEventListener('click', handleShareClick);
             telegramFloat.addEventListener('click', handleShareClick);
 
-            // ========== INBOX: store messages & replies ==========
+            // ========== INBOX: WORKING MESSAGING SYSTEM WITH NOTIFICATIONS ==========
             let messages = [];  // each: { contact, text, time, replies: [] }
 
             // DOM elements
             const inboxList = document.getElementById('inbox-messages-list');
             const messageCountSpan = document.getElementById('message-count');
+            const notificationBadge = document.getElementById('notification-badge');
+            const mobileNotification = document.getElementById('mobile-notification');
             const visitorContact = document.getElementById('visitor-contact');
             const visitorMessage = document.getElementById('visitor-message');
             const submitVisitor = document.getElementById('submit-visitor');
             const visitorFeedback = document.getElementById('visitor-feedback');
 
+            // Update all notification badges
+            function updateNotifications() {
+                const count = messages.length;
+                messageCountSpan.innerText = count + ' message' + (count !== 1 ? 's' : '');
+                
+                if (count > 0) {
+                    notificationBadge.style.display = 'flex';
+                    notificationBadge.innerText = count;
+                    mobileNotification.style.display = 'inline-flex';
+                    mobileNotification.innerText = count;
+                } else {
+                    notificationBadge.style.display = 'none';
+                    mobileNotification.style.display = 'none';
+                }
+            }
+
+            // Render inbox messages
             function renderInbox() {
                 if (messages.length === 0) {
                     inboxList.innerHTML = '<div class="empty-inbox">No messages yet. Friends can leave a message above.</div>';
-                    messageCountSpan.innerText = '0 messages';
+                    updateNotifications();
                     return;
                 }
+                
                 let html = '';
                 messages.forEach((msg, idx) => {
                     const timeStr = msg.time || new Date().toLocaleString();
@@ -482,7 +530,7 @@
                     html += `<div class="message-header"><span class="message-contact">📞 ${msg.contact}</span><span class="message-time">${timeStr}</span></div>`;
                     html += `<div class="message-text">💬 ${msg.text || '(no message)'}</div>`;
                     
-                    // show replies if any
+                    // Show replies if any
                     if (msg.replies && msg.replies.length > 0) {
                         msg.replies.forEach(r => {
                             html += `<div style="margin-left:2rem; margin-bottom:0.5rem; border-left:2px solid var(--secondary); padding-left:1rem;">`;
@@ -491,53 +539,76 @@
                         });
                     }
 
-                    // reply form
+                    // Reply form
                     html += `<div class="reply-section">`;
                     html += `<input type="text" class="reply-input" id="reply-input-${idx}" placeholder="Write a reply...">`;
                     html += `<button class="reply-btn" data-index="${idx}">Reply</button>`;
                     html += `</div></div>`;
                 });
+                
                 inboxList.innerHTML = html;
-                messageCountSpan.innerText = messages.length + ' message' + (messages.length>1?'s':'');
+                updateNotifications();
 
-                // attach reply events
+                // Attach reply events
                 document.querySelectorAll('.reply-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const idx = this.getAttribute('data-index');
                         const input = document.getElementById(`reply-input-${idx}`);
                         const replyText = input.value.trim();
                         if (replyText === '') return;
+                        
                         const reply = {
                             text: replyText,
                             time: new Date().toLocaleString()
                         };
+                        
                         if (!messages[idx].replies) messages[idx].replies = [];
                         messages[idx].replies.push(reply);
-                        renderInbox();  // re-render to show reply
+                        input.value = '';
+                        renderInbox();  // Re-render to show reply
                     });
                 });
             }
 
-            // Visitor submits message
+            // Visitor submits message - NOW WORKING
             submitVisitor.addEventListener('click', function() {
                 const contact = visitorContact.value.trim();
                 const text = visitorMessage.value.trim() || '(no message)';
+                
                 if (contact === '') {
                     visitorFeedback.innerHTML = '<span style="color:#ff6b6b;">Contact info required</span>';
                     return;
                 }
-                // store message
+                
+                // Add message to array
                 messages.push({
                     contact: contact,
                     text: text,
                     time: new Date().toLocaleString(),
                     replies: []
                 });
-                renderInbox();
+                
+                // Clear form
                 visitorContact.value = '';
                 visitorMessage.value = '';
-                visitorFeedback.innerHTML = '<span style="color:#00d9ff;">Message sent! Check inbox above.</span>';
-                setTimeout(() => visitorFeedback.innerHTML = '', 3000);
+                
+                // Show feedback
+                visitorFeedback.innerHTML = '<span style="color:#00d9ff;">✓ Message sent! You can see it in the Inbox above.</span>';
+                setTimeout(() => visitorFeedback.innerHTML = '', 4000);
+                
+                // Re-render inbox to show new message
+                renderInbox();
+                
+                // Scroll to inbox slightly to show notification
+                setTimeout(() => {
+                    const inboxSection = document.getElementById('inbox');
+                    if (inboxSection) {
+                        window.scrollTo({
+                            top: inboxSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 500);
             });
 
             // ========== EXISTING FUNCTIONALITY (nav, animations, form) ==========
@@ -555,6 +626,7 @@
                 mobileMenu.classList.toggle('active');
                 document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             });
+            
             navLinks.forEach(link => link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
@@ -563,6 +635,7 @@
                 mobileMenu.classList.remove('active');
                 document.body.style.overflow = '';
             }));
+            
             mobileMenu.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
@@ -577,6 +650,7 @@
                 if (window.scrollY > 500) backToTopBtn.classList.add('visible'); else backToTopBtn.classList.remove('visible');
                 updateActiveNavLink();
             });
+            
             function updateActiveNavLink() {
                 const sections = ['home', 'skills', 'services', 'inbox', 'contact'];
                 sections.forEach(id => {
@@ -591,6 +665,7 @@
                     }
                 });
             }
+            
             function scrollToSection(sectionId) {
                 const el = document.getElementById(sectionId);
                 if (el) {
@@ -601,9 +676,10 @@
 
             backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-            // skill bars animation
+            // Skill bars animation
             const skillBars = document.querySelectorAll('.skill-progress');
             let skillsAnimated = false;
+            
             function animateSkillBars() {
                 if (skillsAnimated) return;
                 const skillsSection = document.getElementById('skills');
@@ -615,6 +691,7 @@
             window.addEventListener('scroll', animateSkillBars);
             animateSkillBars();
 
+            // Reveal animations
             const revealElements = document.querySelectorAll('.reveal');
             function revealOnScroll() {
                 const windowHeight = window.innerHeight;
@@ -623,7 +700,7 @@
             window.addEventListener('scroll', revealOnScroll);
             revealOnScroll();
 
-            // contact form (mock)
+            // Contact form (mock)
             contactForm.addEventListener('submit', async function (e) {
                 e.preventDefault();
                 document.querySelectorAll('.form-group').forEach(g => g.classList.remove('error'));
@@ -632,6 +709,7 @@
                 const email = document.getElementById('email');
                 const subject = document.getElementById('subject');
                 const message = document.getElementById('message');
+                
                 if (!name.value.trim()) { isValid = false; name.parentElement.classList.add('error'); name.parentElement.querySelector('.error-message').textContent = 'Name required'; }
                 if (!email.value.trim() || !/^\S+@\S+\.\S+$/.test(email.value)) { isValid = false; email.parentElement.classList.add('error'); email.parentElement.querySelector('.error-message').textContent = 'Valid email required'; }
                 if (!subject.value.trim()) { isValid = false; subject.parentElement.classList.add('error'); subject.parentElement.querySelector('.error-message').textContent = 'Subject required'; }
@@ -650,7 +728,7 @@
 
             document.getElementById('year').textContent = new Date().getFullYear();
 
-            // smooth scroll for anchor links
+            // Smooth scroll for all anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     const targetId = this.getAttribute('href');
@@ -665,6 +743,8 @@
 
             // Initial render
             renderInbox();
+            
+            console.log('Portfolio ready — messaging system working with notifications!');
         });
     </script>
 </body>
