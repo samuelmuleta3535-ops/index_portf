@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samuel | CS Student Portfolio + Live Chat</title>
-    <meta name="description" content="Samuel - Computer Science Student. Frontend & PHP backend. Live chat available.">
+    <title>Samuel | CS Student Portfolio - Private Messaging</title>
+    <meta name="description"
+        content="Samuel - Computer Science Student. Frontend & PHP backend. Private messaging for friends.">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -191,7 +192,7 @@
             width: 100%;
         }
 
-        /* Notification badge */
+        /* Notification badge - only visible to owner */
         .nav-item {
             position: relative;
         }
@@ -296,7 +297,51 @@
             font-size: 1.5rem;
         }
 
-        /* === Hero (unchanged) === */
+        /* === Owner Quick Access Button (always visible) === */
+        .owner-access-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-glow);
+            cursor: pointer;
+            z-index: 1000;
+            transition: 0.3s;
+            border: 2px solid var(--secondary);
+        }
+
+        .owner-access-btn:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+        }
+
+        .owner-access-btn .tooltip {
+            position: absolute;
+            right: 60px;
+            background: var(--bg-card);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+            color: white;
+        }
+
+        .owner-access-btn:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* === Hero === */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -508,7 +553,7 @@
             animation: bounce 2s infinite;
         }
 
-        /* Passkey modal */
+        /* Owner Passkey modal */
         .passkey-modal {
             position: fixed;
             top: 0;
@@ -566,223 +611,8 @@
             display: none;
         }
 
-        /* === PROFESSIONAL CHAT SECTION === */
-        .chat-section {
-            padding: 5rem 0;
-            background: var(--bg-secondary);
-        }
-
-        .chat-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .chat-card {
-            background: var(--bg-card);
-            border-radius: 24px;
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .chat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .chat-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .chat-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #4caf50;
-            animation: pulse 2s infinite;
-        }
-
-        .chat-controls {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .clear-chat-btn {
-            background: var(--bg-tertiary);
-            color: var(--text-secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            transition: 0.2s;
-        }
-
-        .clear-chat-btn:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        @keyframes pulse {
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        /* Chat messages area */
-        .chat-messages {
-            height: 400px;
-            overflow-y: auto;
-            padding: 1rem;
-            background: var(--bg-tertiary);
-            border-radius: 16px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .message {
-            display: flex;
-            flex-direction: column;
-            max-width: 80%;
-            position: relative;
-        }
-
-        .message.sent {
-            align-self: flex-end;
-        }
-
-        .message.received {
-            align-self: flex-start;
-        }
-
-        .message-content {
-            padding: 0.75rem 1rem;
-            border-radius: 18px;
-            position: relative;
-            word-wrap: break-word;
-            padding-right: 2.5rem;
-        }
-
-        .message.sent .message-content {
-            background: var(--gradient-primary);
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
-
-        .message.received .message-content {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            border-bottom-left-radius: 4px;
-        }
-
-        .message-time {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-            margin-left: 0.5rem;
-        }
-
-        .message.sent .message-time {
-            text-align: right;
-        }
-
-        /* Delete button */
-        .delete-msg {
-            position: absolute;
-            top: 0.25rem;
-            right: 0.25rem;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.7rem;
-            cursor: pointer;
-            opacity: 0;
-            transition: 0.2s;
-        }
-
-        .message:hover .delete-msg {
-            opacity: 1;
-        }
-
-        .delete-msg:hover {
-            background: var(--accent);
-            transform: scale(1.1);
-        }
-
-        /* Chat input area */
-        .chat-input-area {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            background: var(--bg-tertiary);
-            border-radius: 50px;
-            padding: 0.5rem;
-        }
-
-        .chat-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 0.75rem 1rem;
-            color: var(--text-primary);
-            font-size: 1rem;
-        }
-
-        .chat-input:focus {
-            outline: none;
-        }
-
-        .chat-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .chat-send-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: var(--gradient-primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
-
-        .chat-send-btn:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* User info modal for first-time visitors */
-        .user-modal {
+        /* Friend Info Modal */
+        .friend-info-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -799,12 +629,12 @@
             transition: 0.3s;
         }
 
-        .user-modal.active {
+        .friend-info-modal.active {
             opacity: 1;
             visibility: visible;
         }
 
-        .user-box {
+        .friend-info-box {
             background: var(--bg-card);
             padding: 2.5rem;
             border-radius: 30px;
@@ -814,19 +644,19 @@
             border: 1px solid var(--border-color);
         }
 
-        .user-box h2 {
+        .friend-info-box h2 {
             margin-bottom: 1rem;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .user-box p {
+        .friend-info-box p {
             color: var(--text-secondary);
             margin-bottom: 2rem;
         }
 
-        .user-input {
+        .friend-info-input {
             width: 100%;
             padding: 1rem;
             background: var(--bg-tertiary);
@@ -837,44 +667,118 @@
             font-size: 1rem;
         }
 
-        .user-input:focus {
+        .friend-info-input:focus {
             border-color: var(--primary);
         }
 
-        .user-btn {
+        .friend-info-btn {
             width: 100%;
             padding: 1rem;
         }
 
-        /* === Existing sections (skills, services, contact) unchanged === */
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
+        .friend-info-note {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 1rem;
         }
 
-        .section-subtitle {
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-        }
-
-        .title-underline {
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-primary);
-            margin: 0 auto;
-            border-radius: 50px;
-        }
-
-        .skills {
+        /* === SERVICES SECTION === */
+        .services {
             padding: 5rem 0;
             background: var(--bg-secondary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: 0.3s;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(180deg);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .service-features li i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        /* === SKILLS SECTION === */
+        .skills {
+            padding: 5rem 0;
+            background: var(--bg-primary);
         }
 
         .skills-container {
@@ -957,109 +861,40 @@
             transition: width 1.5s ease;
         }
 
-        .services {
+        /* === CONTACT PAGE === */
+        .contact-page {
             padding: 5rem 0;
-            background: var(--bg-primary);
+            background: var(--bg-secondary);
         }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .service-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 1.5rem;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--gradient-primary);
-            transform: scaleX(0);
-            transition: 0.3s;
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            transition: 0.3s;
-        }
-
-        .service-card:hover .service-icon {
-            transform: rotateY(180deg);
-        }
-
-        .service-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .service-description {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            line-height: 1.7;
-            margin-bottom: 1rem;
-        }
-
-        .service-features li {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .service-features li i {
-            color: var(--primary);
-        }
-
-        .contact {
-            padding: 5rem 0;
-            background: var(--bg-primary);
-        }
-
-        .contact-container {
+        .contact-page-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             align-items: start;
         }
 
-        .contact-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .contact-info-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
         }
 
-        .contact-info>p {
+        .contact-info-card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-info-card p {
             color: var(--text-secondary);
             margin-bottom: 2rem;
+            line-height: 1.8;
         }
 
         .contact-details {
@@ -1069,13 +904,13 @@
             margin-bottom: 2rem;
         }
 
-        .contact-item {
+        .contact-detail-item {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
 
-        .contact-icon {
+        .contact-detail-icon {
             width: 50px;
             height: 50px;
             background: var(--bg-tertiary);
@@ -1084,21 +919,21 @@
             align-items: center;
             justify-content: center;
             color: var(--primary);
-            flex-shrink: 0;
+            font-size: 1.2rem;
         }
 
-        .contact-text h4 {
+        .contact-detail-text h4 {
             font-size: 1rem;
             font-weight: 600;
         }
 
-        .contact-text a,
-        .contact-text p {
+        .contact-detail-text a,
+        .contact-detail-text p {
             color: var(--text-secondary);
-            font-size: 0.875rem;
+            font-size: 0.9rem;
         }
 
-        .contact-text a:hover {
+        .contact-detail-text a:hover {
             color: var(--primary);
         }
 
@@ -1107,7 +942,7 @@
             gap: 1rem;
         }
 
-        .social-btn {
+        .contact-social-link {
             width: 45px;
             height: 45px;
             background: var(--bg-tertiary);
@@ -1119,101 +954,254 @@
             transition: 0.3s;
         }
 
-        .social-btn:hover {
+        .contact-social-link:hover {
             background: var(--primary);
             color: white;
             transform: translateY(-5px);
         }
 
-        .contact-form-wrapper {
+        /* Friend Message Form */
+        .friend-message-card {
             background: var(--bg-card);
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: 24px;
+            padding: 2.5rem;
             border: 1px solid var(--border-color);
         }
 
-        .contact-form {
+        .friend-message-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .friend-message-card p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .friend-message-form {
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
         }
 
-        .form-group {
+        .friend-form-group {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
 
-        .form-group label {
+        .friend-form-group label {
             font-weight: 500;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
+            color: var(--primary);
         }
 
-        .form-group input,
-        .form-group textarea {
+        .friend-form-group input,
+        .friend-form-group textarea {
             background: var(--bg-tertiary);
             border: 2px solid var(--border-color);
             border-radius: 12px;
-            padding: 0.875rem 1rem;
+            padding: 1rem;
             color: white;
             transition: 0.3s;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
+        .friend-form-group input:focus,
+        .friend-form-group textarea:focus {
             border-color: var(--primary);
         }
 
-        .error-message {
-            color: var(--accent);
-            font-size: 0.75rem;
-            display: none;
+        .friend-submit-btn {
+            width: 100%;
+            margin-top: 1rem;
         }
 
-        .form-group.error input {
-            border-color: var(--accent);
-        }
-
-        .form-group.error .error-message {
-            display: block;
-        }
-
-        .btn-submit {
-            position: relative;
-        }
-
-        .btn-loading {
-            display: none;
-        }
-
-        .btn-submit.loading .btn-text,
-        .btn-submit.loading .btn-icon {
-            display: none;
-        }
-
-        .btn-submit.loading .btn-loading {
-            display: inline-block;
-        }
-
-        .status-message {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .friend-form-status {
+            margin-top: 1rem;
             padding: 1rem;
             border-radius: 12px;
-            font-size: 0.875rem;
+            display: none;
         }
 
-        .status-message.success {
+        .friend-form-status.success {
+            display: block;
             background: rgba(16, 185, 129, 0.2);
             color: #10b981;
         }
 
-        .status-message.error {
+        .friend-form-status.error {
+            display: block;
             background: rgba(239, 68, 68, 0.2);
             color: #ef4444;
         }
 
+        .privacy-note {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        /* === PRIVATE MESSAGES SECTION (only visible to owner) === */
+        .private-messages-section {
+            padding: 5rem 0;
+            background: var(--bg-primary);
+            display: none;
+            /* Hidden by default */
+        }
+
+        .private-messages-section.owner-visible {
+            display: block;
+        }
+
+        .private-messages-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .private-messages-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .private-messages-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .private-messages-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .private-messages-badge {
+            background: var(--primary);
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .conversations-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .conversation-item {
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .conversation-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .friend-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .friend-email {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .conversation-time {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .message-bubble {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .message-bubble.friend {
+            border-left-color: var(--secondary);
+        }
+
+        .message-text {
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .message-meta {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-align: right;
+        }
+
+        .reply-section {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .reply-input {
+            flex: 1;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            padding: 0.75rem 1rem;
+            color: white;
+        }
+
+        .reply-input:focus {
+            border-color: var(--primary);
+        }
+
+        .reply-btn {
+            background: var(--primary);
+            color: white;
+            border-radius: 30px;
+            padding: 0.75rem 1.5rem;
+            transition: 0.2s;
+        }
+
+        .reply-btn:hover {
+            background: var(--secondary);
+        }
+
+        .delete-conversation {
+            background: var(--accent);
+            color: white;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            transition: 0.2s;
+        }
+
+        .delete-conversation:hover {
+            opacity: 0.8;
+        }
+
+        .empty-messages {
+            color: var(--text-muted);
+            text-align: center;
+            padding: 3rem;
+        }
+
+        /* === Footer === */
         .footer {
             background: var(--bg-secondary);
             padding: 3rem 0 1.5rem;
@@ -1467,20 +1455,8 @@
                 display: none;
             }
 
-            .contact-container {
+            .contact-page-container {
                 grid-template-columns: 1fr;
-            }
-
-            .contact-info {
-                text-align: center;
-            }
-
-            .contact-details {
-                align-items: center;
-            }
-
-            .contact-social {
-                justify-content: center;
             }
 
             .telegram-float {
@@ -1497,13 +1473,9 @@
                 height: 45px;
             }
 
-            .chat-messages {
-                height: 300px;
-            }
-
-            .chat-header {
-                flex-direction: column;
-                align-items: flex-start;
+            .owner-access-btn {
+                bottom: 80px;
+                right: 20px;
             }
         }
 
@@ -1524,16 +1496,12 @@
             #profile-image-container .default-icon {
                 font-size: 5rem;
             }
-
-            .message {
-                max-width: 90%;
-            }
         }
     </style>
 </head>
 
 <body>
-    <!-- Nav with notification badge -->
+    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#home" class="logo">Sam<span>uel</span></a>
@@ -1541,9 +1509,9 @@
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
-                <li class="nav-item">
-                    <a href="#chat" class="nav-link" id="chat-nav-link">Live Chat</a>
-                    <span class="notification-badge" id="chat-notification" style="display: none;">1</span>
+                <li class="nav-item" id="messages-nav-item" style="display: none;">
+                    <a href="#private-messages" class="nav-link" id="messages-nav-link">Messages</a>
+                    <span class="notification-badge" id="messages-notification" style="display: none;">0</span>
                 </li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -1551,40 +1519,48 @@
             <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu">
         <a href="#home" class="nav-link">Home</a>
         <a href="#skills" class="nav-link">Skills</a>
         <a href="#services" class="nav-link">Services</a>
-        <a href="#chat" class="nav-link" id="mobile-chat-link">Live Chat <span class="mobile-notification"
-                id="mobile-chat-notification" style="display: none;">1</span></a>
+        <a href="#private-messages" class="nav-link" id="mobile-messages-link" style="display: none;">Messages <span
+                class="mobile-notification" id="mobile-messages-notification" style="display: none;">0</span></a>
         <a href="#contact" class="nav-link">Contact</a>
         <button class="telegram-btn" id="telegram-mobile-btn"><i class="fab fa-telegram"></i> Share on Telegram</button>
     </div>
 
-    <!-- User identification modal (appears for new visitors) -->
-    <div class="user-modal" id="user-modal">
-        <div class="user-box">
-            <h2>👋 Welcome to my portfolio!</h2>
-            <p>Please introduce yourself to start chatting</p>
-            <input type="text" class="user-input" id="user-name" placeholder="Your name" autocomplete="off">
-            <input type="email" class="user-input" id="user-email" placeholder="Your email (optional)"
-                autocomplete="off">
-            <button class="btn btn-primary user-btn" id="join-chat-btn">Join Chat</button>
+    <!-- Owner Quick Access Button (always visible) -->
+    <div class="owner-access-btn" id="owner-access-btn">
+        <i class="fas fa-lock"></i>
+        <span class="tooltip">Owner Access (View Messages)</span>
+    </div>
+
+    <!-- Friend Info Modal (collects friend details before messaging) -->
+    <div class="friend-info-modal" id="friend-info-modal">
+        <div class="friend-info-box">
+            <h2>👋 Before you message me</h2>
+            <p>Please introduce yourself so I know who you are</p>
+            <input type="text" class="friend-info-input" id="friend-name" placeholder="Your name" autocomplete="off">
+            <input type="email" class="friend-info-input" id="friend-email" placeholder="Your email" autocomplete="off">
+            <button class="btn btn-primary friend-info-btn" id="save-friend-info">Continue to Contact</button>
+            <p class="friend-info-note">Your information is private and will only be shared with me</p>
         </div>
     </div>
 
-    <!-- Passkey modal (owner only) -->
+    <!-- Owner Passkey Modal (only for owner) -->
     <div class="passkey-modal" id="passkey-modal">
         <div class="passkey-box">
-            <h3>🔒 Owner verification</h3>
-            <p>Enter passkey to upload image or share portfolio</p>
-            <input type="password" id="passkey-input" placeholder="passkey (e.g. 1234)">
+            <h3>🔒 Owner Access</h3>
+            <p>Enter passkey to view messages and manage portfolio</p>
+            <input type="password" id="passkey-input" placeholder="passkey" autofocus>
             <button class="btn btn-primary" id="submit-passkey">Verify</button>
             <div class="passkey-error" id="passkey-error">Incorrect passkey</div>
         </div>
     </div>
 
-    <!-- Hero section -->
+    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
@@ -1592,11 +1568,11 @@
                 <h1 class="hero-title"><span class="gradient-text">Samuel</span></h1>
                 <h2 class="hero-subtitle">Computer Science Student</h2>
                 <p class="hero-description">I'm a third-year Computer Science student with experience in web
-                    development. I love building things and connecting with people. Feel free to start a live chat with
-                    me!</p>
+                    development. I love building things and connecting with people. Feel free to send me a message!</p>
                 <div class="hero-buttons">
-                    <a href="#chat" class="btn btn-primary"><i class="fas fa-comments"></i> Live Chat</a>
-                    <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact</a>
+                    <a href="#services" class="btn btn-primary"><i class="fas fa-code"></i> My Services</a>
+                    <a href="#contact" class="btn btn-secondary" id="hero-contact-btn"><i class="fas fa-envelope"></i>
+                        Contact Me</a>
                 </div>
                 <div class="hero-social">
                     <a href="#" class="social-link"><i class="fab fa-github"></i></a>
@@ -1616,7 +1592,7 @@
                     <input type="file" id="image-upload" accept="image/*" disabled>
                     <div class="floating-badge badge-1"><i class="fas fa-code"></i> Developer</div>
                     <div class="floating-badge badge-2"><i class="fas fa-laptop-code"></i> Coder</div>
-                    <div class="floating-badge badge-3"><i class="fas fa-comments"></i> Live Chat</div>
+                    <div class="floating-badge badge-3"><i class="fas fa-comments"></i> Let's Talk</div>
                 </div>
             </div>
         </div>
@@ -1746,6 +1722,7 @@
                 <div class="title-underline"></div>
             </div>
             <div class="services-grid">
+                <!-- Web Development -->
                 <div class="service-card reveal">
                     <div class="service-icon"><i class="fas fa-code"></i></div>
                     <h3 class="service-title">Web Development</h3>
@@ -1757,6 +1734,7 @@
                         <li><i class="fas fa-check"></i> API Development</li>
                     </ul>
                 </div>
+                <!-- Frontend Development -->
                 <div class="service-card reveal">
                     <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
                     <h3 class="service-title">Frontend Development</h3>
@@ -1768,6 +1746,7 @@
                         <li><i class="fas fa-check"></i> Cross-browser</li>
                     </ul>
                 </div>
+                <!-- Backend Development -->
                 <div class="service-card reveal">
                     <div class="service-icon"><i class="fas fa-database"></i></div>
                     <h3 class="service-title">Backend Development</h3>
@@ -1783,128 +1762,104 @@
         </div>
     </section>
 
-    <!-- ===== PROFESSIONAL LIVE CHAT SECTION ===== -->
-    <section class="chat-section" id="chat">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-subtitle">Connect with me</p>
-                <h2 class="section-title">Live Chat</h2>
-                <div class="title-underline"></div>
-            </div>
-            <div class="chat-container">
-                <div class="chat-card">
-                    <div class="chat-header">
-                        <div class="chat-title">
-                            <i class="fas fa-comments" style="color: var(--primary); margin-right: 10px;"></i>
-                            Portfolio Chat
-                        </div>
-                        <div class="chat-status">
-                            <span class="status-dot"></span>
-                            <span id="online-count">1</span> online
-                        </div>
-                        <div class="chat-controls">
-                            <button class="clear-chat-btn" id="clear-chat-btn"><i class="fas fa-trash-alt"></i> Clear
-                                all</button>
-                        </div>
-                    </div>
-
-                    <!-- Chat messages area -->
-                    <div class="chat-messages" id="chat-messages">
-                        <!-- System welcome message -->
-                        <div class="message received">
-                            <div class="message-content">
-                                👋 Welcome! Please introduce yourself.
-                            </div>
-                            <div class="message-time">System</div>
-                        </div>
-                    </div>
-
-                    <!-- Chat input area -->
-                    <div class="chat-input-area">
-                        <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..."
-                            disabled>
-                        <button class="chat-send-btn" id="chat-send" disabled>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                    <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem; text-align: center;">
-                        <i class="fas fa-shield-alt"></i> Hover over messages to delete · You reply manually
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <!-- CONTACT PAGE (Friends send messages) -->
+    <section class="contact-page" id="contact">
         <div class="container">
             <div class="section-header">
                 <p class="section-subtitle">Get In Touch</p>
                 <h2 class="section-title">Contact Me</h2>
                 <div class="title-underline"></div>
             </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Let's Talk</h3>
-                    <p>I'm currently available for freelance work. Feel free to reach out!</p>
+            <div class="contact-page-container">
+                <!-- Contact Info -->
+                <div class="contact-info-card">
+                    <h2>Let's Talk</h2>
+                    <p>I'm currently available for freelance work, collaborations, or just a friendly chat. Send me a
+                        message and I'll get back to you as soon as possible.</p>
+
                     <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                            <div class="contact-text">
-                                <h4>Phone</h4><a href="tel:0970370618">0970370618</a>
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon"><i class="fas fa-phone"></i></div>
+                            <div class="contact-detail-text">
+                                <h4>Phone</h4>
+                                <a href="tel:0970370618">0970370618</a>
                             </div>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                            <div class="contact-text">
-                                <h4>Email</h4><a href="mailto:samuel@example.com">samuel@example.com</a>
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-detail-text">
+                                <h4>Email</h4>
+                                <a href="mailto:samuel@example.com">samuel@example.com</a>
                             </div>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div class="contact-text">
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-detail-text">
                                 <h4>Location</h4>
                                 <p>Your City, Country</p>
                             </div>
                         </div>
                     </div>
+
                     <div class="contact-social">
-                        <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="contact-social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="contact-social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="contact-social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="contact-social-link"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <div class="contact-form-wrapper">
-                    <form class="contact-form" id="contact-form">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" placeholder="Enter name" required>
-                            <span class="error-message"></span>
+
+                <!-- Friend Message Form -->
+                <div class="friend-message-card">
+                    <h3>Send a Message</h3>
+                    <p>Fill out the form below and I'll receive your message privately.</p>
+
+                    <form class="friend-message-form" id="friend-message-form">
+                        <div class="friend-form-group">
+                            <label for="friend-subject">Subject</label>
+                            <input type="text" id="friend-subject" placeholder="What's this about?" required>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" name="email" placeholder="Enter email" required>
-                            <span class="error-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" placeholder="Project Inquiry" required>
-                            <span class="error-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..."
+                        <div class="friend-form-group">
+                            <label for="friend-message">Your Message</label>
+                            <textarea id="friend-message" rows="6" placeholder="Write your message here..."
                                 required></textarea>
-                            <span class="error-message"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
-                            <span class="btn-text">Send Message</span>
-                            <span class="btn-loading"><i class="fas fa-spinner fa-spin"></i> Sending...</span>
-                            <i class="fas fa-paper-plane btn-icon"></i>
+                        <button type="submit" class="btn btn-primary friend-submit-btn" id="friend-submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
                         </button>
-                        <div id="form-status"></div>
+                        <div class="friend-form-status" id="friend-form-status"></div>
                     </form>
+
+                    <p class="privacy-note">
+                        <i class="fas fa-lock"></i> Your message is private and only visible to Samuel.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRIVATE MESSAGES SECTION (only visible to owner) -->
+    <section class="private-messages-section" id="private-messages">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Private Inbox</p>
+                <h2 class="section-title">Messages from Friends</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="private-messages-container">
+                <div class="private-messages-card">
+                    <div class="private-messages-header">
+                        <div class="private-messages-title">
+                            <i class="fas fa-lock" style="color: var(--primary); margin-right: 10px;"></i>
+                            Private Conversations
+                        </div>
+                        <span class="private-messages-badge" id="conversations-count">0 conversations</span>
+                    </div>
+
+                    <div class="conversations-list" id="conversations-list">
+                        <div class="empty-messages">No messages yet. When friends contact you, their messages will
+                            appear here.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1935,9 +1890,75 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // ========== PASSKEY PROTECTION (owner only) ==========
+            // ========== OWNER ACCESS BUTTON (always visible) ==========
+            const ownerAccessBtn = document.getElementById('owner-access-btn');
+            const ownerModal = document.getElementById('passkey-modal');
+
+            ownerAccessBtn.addEventListener('click', function () {
+                ownerModal.classList.add('active');
+                document.getElementById('passkey-input').focus();
+            });
+
+            // ========== FRIEND INFO MODAL ==========
+            const friendModal = document.getElementById('friend-info-modal');
+            const friendName = document.getElementById('friend-name');
+            const friendEmail = document.getElementById('friend-email');
+            const saveFriendBtn = document.getElementById('save-friend-info');
+            const heroContactBtn = document.getElementById('hero-contact-btn');
+
+            let currentFriend = null;
+
+            // Check if friend info already exists
+            const storedFriend = localStorage.getItem('friendInfo');
+            if (storedFriend) {
+                currentFriend = JSON.parse(storedFriend);
+            } else {
+                // Show modal for new friends
+                friendModal.classList.add('active');
+            }
+
+            // Save friend info
+            saveFriendBtn.addEventListener('click', function () {
+                const name = friendName.value.trim();
+                const email = friendEmail.value.trim();
+
+                if (!name || !email) {
+                    alert('Please enter both name and email');
+                    return;
+                }
+
+                if (!/^\S+@\S+\.\S+$/.test(email)) {
+                    alert('Please enter a valid email');
+                    return;
+                }
+
+                currentFriend = {
+                    name: name,
+                    email: email,
+                    id: 'friend_' + Date.now()
+                };
+
+                localStorage.setItem('friendInfo', JSON.stringify(currentFriend));
+                friendModal.classList.remove('active');
+
+                // Scroll to contact section
+                setTimeout(() => {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            });
+
+            // Hero contact button
+            heroContactBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (!currentFriend) {
+                    friendModal.classList.add('active');
+                } else {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            // ========== OWNER VERIFICATION ==========
             const PASSKEY = "1234";
-            const modal = document.getElementById('passkey-modal');
             const passInput = document.getElementById('passkey-input');
             const submitPass = document.getElementById('submit-passkey');
             const passError = document.getElementById('passkey-error');
@@ -1946,31 +1967,43 @@
             const telegramNav = document.getElementById('telegram-nav-btn');
             const telegramMobile = document.getElementById('telegram-mobile-btn');
             const telegramFloat = document.getElementById('telegram-float');
+            const privateMessagesSection = document.getElementById('private-messages');
+            const messagesNavItem = document.getElementById('messages-nav-item');
+            const mobileMessagesLink = document.getElementById('mobile-messages-link');
 
             let ownerVerified = false;
 
-            function requirePasskey(callback) {
-                modal.classList.add('active');
-                window.passkeyCallback = callback;
+            function requireOwnerPasskey(callback) {
+                ownerModal.classList.add('active');
+                window.ownerCallback = callback;
             }
 
             submitPass.addEventListener('click', function () {
                 if (passInput.value === PASSKEY) {
-                    modal.classList.remove('active');
+                    ownerModal.classList.remove('active');
                     passError.style.display = 'none';
                     ownerVerified = true;
                     uploadInput.disabled = false;
-                    if (window.passkeyCallback) {
-                        window.passkeyCallback();
-                        window.passkeyCallback = null;
+
+                    // Show private messages section to owner
+                    privateMessagesSection.classList.add('owner-visible');
+                    messagesNavItem.style.display = 'block';
+                    mobileMessagesLink.style.display = 'block';
+
+                    if (window.ownerCallback) {
+                        window.ownerCallback();
+                        window.ownerCallback = null;
                     }
+
+                    // Load conversations
+                    loadConversations();
                 } else {
                     passError.style.display = 'block';
                 }
             });
 
-            modal.addEventListener('click', function (e) {
-                if (e.target === modal) modal.classList.remove('active');
+            ownerModal.addEventListener('click', function (e) {
+                if (e.target === ownerModal) ownerModal.classList.remove('active');
             });
 
             // Profile image upload (protected)
@@ -1980,7 +2013,7 @@
             uploadLabel.addEventListener('click', function (e) {
                 if (!ownerVerified) {
                     e.preventDefault();
-                    requirePasskey(function () { uploadInput.click(); });
+                    requireOwnerPasskey(function () { uploadInput.click(); });
                 } else {
                     uploadInput.click();
                 }
@@ -2002,13 +2035,13 @@
             // Telegram share (protected)
             function shareOnTelegram() {
                 const url = encodeURIComponent(window.location.href);
-                const text = encodeURIComponent("Check out my CS portfolio with live chat! Let's connect.");
+                const text = encodeURIComponent("Check out my CS portfolio! You can message me directly.");
                 window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
             }
             function handleShareClick(e) {
                 if (!ownerVerified) {
                     e.preventDefault();
-                    requirePasskey(function () { shareOnTelegram(); });
+                    requireOwnerPasskey(function () { shareOnTelegram(); });
                 } else {
                     shareOnTelegram();
                 }
@@ -2017,221 +2050,188 @@
             telegramMobile.addEventListener('click', handleShareClick);
             telegramFloat.addEventListener('click', handleShareClick);
 
-            // ========== PROFESSIONAL CHAT SYSTEM WITH MANUAL REPLIES ==========
-            // State
-            let currentUser = null;
-            let messages = [];
-            let onlineUsers = 1; // Samuel is always online
+            // ========== PRIVATE MESSAGING SYSTEM ==========
+            let conversations = [];
 
             // DOM elements
-            const userModal = document.getElementById('user-modal');
-            const userName = document.getElementById('user-name');
-            const userEmail = document.getElementById('user-email');
-            const joinBtn = document.getElementById('join-chat-btn');
-            const chatMessages = document.getElementById('chat-messages');
-            const chatInput = document.getElementById('chat-input');
-            const chatSend = document.getElementById('chat-send');
-            const onlineCount = document.getElementById('online-count');
-            const chatNotification = document.getElementById('chat-notification');
-            const mobileChatNotification = document.getElementById('mobile-chat-notification');
-            const clearChatBtn = document.getElementById('clear-chat-btn');
+            const conversationsList = document.getElementById('conversations-list');
+            const conversationsCount = document.getElementById('conversations-count');
+            const messagesNotification = document.getElementById('messages-notification');
+            const mobileMessagesNotification = document.getElementById('mobile-messages-notification');
+            const friendMessageForm = document.getElementById('friend-message-form');
+            const friendSubject = document.getElementById('friend-subject');
+            const friendMessage = document.getElementById('friend-message');
+            const friendSubmitBtn = document.getElementById('friend-submit-btn');
+            const friendFormStatus = document.getElementById('friend-form-status');
 
-            // Check if user is new (no stored name)
-            const storedUser = localStorage.getItem('chatUser');
-            if (storedUser) {
-                currentUser = JSON.parse(storedUser);
-                userModal.classList.remove('active');
-                enableChat();
-                loadMessages();
-            } else {
-                userModal.classList.add('active');
-            }
-
-            // Join chat
-            joinBtn.addEventListener('click', function () {
-                const name = userName.value.trim();
-                if (!name) {
-                    alert('Please enter your name');
-                    return;
-                }
-
-                currentUser = {
-                    name: name,
-                    email: userEmail.value.trim() || 'Not provided',
-                    id: 'user_' + Date.now()
-                };
-
-                localStorage.setItem('chatUser', JSON.stringify(currentUser));
-                userModal.classList.remove('active');
-                enableChat();
-
-                // Add system message
-                addMessage({
-                    id: Date.now(),
-                    type: 'system',
-                    text: `${name} joined the chat`,
-                    time: new Date().toLocaleTimeString()
-                });
-            });
-
-            function enableChat() {
-                chatInput.disabled = false;
-                chatSend.disabled = false;
-                chatInput.focus();
-                updateOnlineCount(onlineUsers + 1);
-            }
-
-            function addMessage(message) {
-                messages.push(message);
-                saveMessages();
-                renderMessages();
-
-                // Show notification for new messages (except own messages and system messages)
-                if (message.type !== 'sent' && message.type !== 'system') {
-                    showChatNotification();
+            // Load conversations from localStorage
+            function loadConversations() {
+                const saved = localStorage.getItem('privateConversations');
+                if (saved) {
+                    conversations = JSON.parse(saved);
+                    renderConversations();
                 }
             }
 
-            function renderMessages() {
-                if (messages.length === 0) {
-                    chatMessages.innerHTML = `
-                        <div class="message received">
-                            <div class="message-content">
-                                👋 No messages yet. Say hello!
-                            </div>
-                            <div class="message-time">System</div>
-                        </div>
-                    `;
+            // Save conversations
+            function saveConversations() {
+                localStorage.setItem('privateConversations', JSON.stringify(conversations));
+                updateConversationNotification();
+            }
+
+            // Render conversations (only for owner)
+            function renderConversations() {
+                if (conversations.length === 0) {
+                    conversationsList.innerHTML = '<div class="empty-messages">No messages yet. When friends contact you, their messages will appear here.</div>';
+                    conversationsCount.textContent = '0 conversations';
                     return;
                 }
 
                 let html = '';
-                messages.forEach(msg => {
-                    const messageId = msg.id || Date.now();
+                conversations.forEach((conv, index) => {
+                    const lastMessage = conv.messages[conv.messages.length - 1];
 
-                    if (msg.type === 'system') {
-                        html += `
-                            <div class="message received" data-id="${messageId}">
-                                <div class="message-content" style="background: var(--bg-card); font-style: italic; padding-right: 2rem;">
-                                    ${msg.text}
-                                    <span class="delete-msg" onclick="deleteMessage(${messageId})"><i class="fas fa-times"></i></span>
+                    html += `
+                        <div class="conversation-item" data-conversation-id="${conv.friendId}">
+                            <div class="conversation-header">
+                                <div>
+                                    <span class="friend-name">${conv.friendName}</span>
+                                    <span class="friend-email">(${conv.friendEmail})</span>
                                 </div>
-                                <div class="message-time">${msg.time}</div>
+                                <span class="conversation-time">Last: ${lastMessage.time}</span>
+                            </div>
+                    `;
+
+                    // Show all messages in this conversation
+                    conv.messages.forEach(msg => {
+                        const bubbleClass = msg.type === 'from_friend' ? 'friend' : 'owner';
+                        html += `
+                            <div class="message-bubble ${bubbleClass}">
+                                ${msg.subject ? `<div style="font-weight: 600; color: var(--primary); margin-bottom: 0.25rem;">Subject: ${msg.subject}</div>` : ''}
+                                <div class="message-text">${msg.text}</div>
+                                <div class="message-meta">${msg.type === 'from_friend' ? conv.friendName : 'You'} · ${msg.time}</div>
                             </div>
                         `;
-                    } else if (msg.type === 'sent') {
-                        html += `
-                            <div class="message sent" data-id="${messageId}">
-                                <div class="message-content">
-                                    ${msg.text}
-                                    <span class="delete-msg" onclick="deleteMessage(${messageId})"><i class="fas fa-times"></i></span>
-                                </div>
-                                <div class="message-time">You · ${msg.time}</div>
+                    });
+
+                    // Reply form
+                    html += `
+                            <div class="reply-section">
+                                <input type="text" class="reply-input" id="reply-${conv.friendId}" placeholder="Type your reply...">
+                                <button class="reply-btn" onclick="sendReply('${conv.friendId}')">Reply</button>
                             </div>
-                        `;
-                    } else {
-                        html += `
-                            <div class="message received" data-id="${messageId}">
-                                <div class="message-content">
-                                    <strong style="color: var(--primary);">${msg.sender || 'Visitor'}</strong><br>
-                                    ${msg.text}
-                                    <span class="delete-msg" onclick="deleteMessage(${messageId})"><i class="fas fa-times"></i></span>
-                                </div>
-                                <div class="message-time">${msg.time}</div>
-                            </div>
-                        `;
-                    }
+                            <button class="delete-conversation" onclick="deleteConversation('${conv.friendId}')">
+                                <i class="fas fa-trash"></i> Delete Conversation
+                            </button>
+                        </div>
+                    `;
                 });
-                chatMessages.innerHTML = html;
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                conversationsList.innerHTML = html;
+                conversationsCount.textContent = conversations.length + ' conversation' + (conversations.length !== 1 ? 's' : '');
             }
 
-            // Delete function - make it globally accessible
-            window.deleteMessage = function (messageId) {
-                messages = messages.filter(msg => msg.id !== messageId);
-                saveMessages();
-                renderMessages();
+            // Send reply (owner)
+            window.sendReply = function (friendId) {
+                const replyInput = document.getElementById(`reply-${friendId}`);
+                const replyText = replyInput.value.trim();
+
+                if (!replyText) return;
+
+                const conversation = conversations.find(c => c.friendId === friendId);
+                if (conversation) {
+                    conversation.messages.push({
+                        type: 'from_owner',
+                        text: replyText,
+                        time: new Date().toLocaleString()
+                    });
+
+                    saveConversations();
+                    renderConversations();
+                    replyInput.value = '';
+                }
             };
 
-            function showChatNotification() {
-                chatNotification.style.display = 'flex';
-                mobileChatNotification.style.display = 'inline-flex';
+            // Delete conversation
+            window.deleteConversation = function (friendId) {
+                if (confirm('Delete this entire conversation?')) {
+                    conversations = conversations.filter(c => c.friendId !== friendId);
+                    saveConversations();
+                    renderConversations();
+                }
+            };
 
-                // Auto-hide after 5 seconds
-                setTimeout(() => {
-                    chatNotification.style.display = 'none';
-                    mobileChatNotification.style.display = 'none';
-                }, 5000);
-            }
-
-            function updateOnlineCount(count) {
-                onlineCount.textContent = count;
-            }
-
-            // Save messages to localStorage
-            function saveMessages() {
-                localStorage.setItem('chatMessages', JSON.stringify(messages));
-            }
-
-            // Load messages from localStorage
-            function loadMessages() {
-                const saved = localStorage.getItem('chatMessages');
-                if (saved) {
-                    messages = JSON.parse(saved);
-                    renderMessages();
+            // Update notification badge for owner
+            function updateConversationNotification() {
+                const unreadCount = conversations.length;
+                if (unreadCount > 0 && ownerVerified) {
+                    messagesNotification.style.display = 'flex';
+                    messagesNotification.textContent = unreadCount;
+                    mobileMessagesNotification.style.display = 'inline-flex';
+                    mobileMessagesNotification.textContent = unreadCount;
                 } else {
-                    // Add welcome messages
-                    messages = [
-                        {
-                            id: Date.now() - 1000,
-                            type: 'system',
-                            text: '👋 Welcome to the live chat!',
-                            time: new Date().toLocaleTimeString()
-                        },
-                        {
-                            id: Date.now(),
-                            type: 'received',
-                            text: "Hi there! I'm Samuel. Feel free to ask me anything.",
-                            time: new Date().toLocaleTimeString(),
-                            sender: 'Samuel'
-                        }
-                    ];
-                    renderMessages();
-                    saveMessages();
+                    messagesNotification.style.display = 'none';
+                    mobileMessagesNotification.style.display = 'none';
                 }
             }
 
-            // Send message (manual - no auto-reply)
-            function sendMessage() {
-                const text = chatInput.value.trim();
-                if (!text || !currentUser) return;
+            // Friend sends a message
+            friendMessageForm.addEventListener('submit', function (e) {
+                e.preventDefault();
 
-                // Add sent message
-                addMessage({
-                    id: Date.now(),
-                    type: 'sent',
-                    text: text,
-                    time: new Date().toLocaleTimeString()
+                if (!currentFriend) {
+                    friendModal.classList.add('active');
+                    return;
+                }
+
+                const subject = friendSubject.value.trim();
+                const message = friendMessage.value.trim();
+
+                if (!subject || !message) {
+                    friendFormStatus.textContent = 'Please fill in all fields';
+                    friendFormStatus.className = 'friend-form-status error';
+                    return;
+                }
+
+                // Find or create conversation
+                let conversation = conversations.find(c => c.friendId === currentFriend.id);
+
+                if (!conversation) {
+                    conversation = {
+                        friendId: currentFriend.id,
+                        friendName: currentFriend.name,
+                        friendEmail: currentFriend.email,
+                        messages: []
+                    };
+                    conversations.push(conversation);
+                }
+
+                // Add message
+                conversation.messages.push({
+                    type: 'from_friend',
+                    subject: subject,
+                    text: message,
+                    time: new Date().toLocaleString()
                 });
 
-                chatInput.value = '';
-                // NO AUTO-REPLY - Samuel will reply manually
-            }
+                saveConversations();
 
-            // Clear all messages
-            clearChatBtn.addEventListener('click', function () {
-                if (confirm('Clear all chat messages?')) {
-                    messages = [];
-                    saveMessages();
-                    renderMessages();
-                }
-            });
+                // Show success message
+                friendFormStatus.textContent = 'Message sent successfully! Samuel will reply soon.';
+                friendFormStatus.className = 'friend-form-status success';
 
-            chatSend.addEventListener('click', sendMessage);
-            chatInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
+                // Clear form
+                friendSubject.value = '';
+                friendMessage.value = '';
+
+                // If owner is logged in, refresh conversations
+                if (ownerVerified) {
+                    renderConversations();
                 }
+
+                setTimeout(() => {
+                    friendFormStatus.className = 'friend-form-status';
+                }, 5000);
             });
 
             // ========== EXISTING FUNCTIONALITY ==========
@@ -2240,9 +2240,6 @@
             const mobileMenu = document.getElementById('mobile-menu');
             const navLinks = document.querySelectorAll('.nav-link');
             const backToTopBtn = document.getElementById('back-to-top');
-            const contactForm = document.getElementById('contact-form');
-            const submitBtn = document.getElementById('submit-btn');
-            const formStatus = document.getElementById('form-status');
 
             // Mobile menu
             hamburger.addEventListener('click', function () {
@@ -2277,7 +2274,7 @@
             });
 
             function updateActiveNavLink() {
-                const sections = ['home', 'skills', 'services', 'chat', 'contact'];
+                const sections = ['home', 'skills', 'services', 'private-messages', 'contact'];
                 sections.forEach(id => {
                     const section = document.getElementById(id);
                     if (section) {
@@ -2325,32 +2322,6 @@
             window.addEventListener('scroll', revealOnScroll);
             revealOnScroll();
 
-            // Contact form
-            contactForm.addEventListener('submit', async function (e) {
-                e.preventDefault();
-                document.querySelectorAll('.form-group').forEach(g => g.classList.remove('error'));
-                let isValid = true;
-                const name = document.getElementById('name');
-                const email = document.getElementById('email');
-                const subject = document.getElementById('subject');
-                const message = document.getElementById('message');
-
-                if (!name.value.trim()) { isValid = false; name.parentElement.classList.add('error'); name.parentElement.querySelector('.error-message').textContent = 'Name required'; }
-                if (!email.value.trim() || !/^\S+@\S+\.\S+$/.test(email.value)) { isValid = false; email.parentElement.classList.add('error'); email.parentElement.querySelector('.error-message').textContent = 'Valid email required'; }
-                if (!subject.value.trim()) { isValid = false; subject.parentElement.classList.add('error'); subject.parentElement.querySelector('.error-message').textContent = 'Subject required'; }
-                if (!message.value.trim()) { isValid = false; message.parentElement.classList.add('error'); message.parentElement.querySelector('.error-message').textContent = 'Message required'; }
-
-                if (isValid) {
-                    submitBtn.classList.add('loading'); submitBtn.disabled = true;
-                    setTimeout(() => {
-                        formStatus.innerHTML = '<div class="status-message success"><i class="fas fa-check-circle"></i><span>Thank you! I\'ll reply soon.</span></div>';
-                        contactForm.reset();
-                        submitBtn.classList.remove('loading'); submitBtn.disabled = false;
-                        setTimeout(() => formStatus.innerHTML = '', 4000);
-                    }, 1000);
-                }
-            });
-
             // Year in footer
             document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -2367,7 +2338,12 @@
                 });
             });
 
-            console.log('Portfolio ready — manual replies only, individual message deletion enabled');
+            // Initial load of conversations if owner is verified
+            if (ownerVerified) {
+                loadConversations();
+            }
+
+            console.log('Portfolio ready — click the lock button to access messages');
         });
     </script>
 </body>
